@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import socket
+import sys
+import os
+import time
+
+# TODO: Check errors
+HOST = os.environ["SERVER_IP"]
+PORT = int(os.environ["SERVER_PORT"])
+CONN_SLEEP = int(os.environ["CONN_SLEEP"])
+
+while 1:
+	try:
+		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		print('[CLIENT] Socket created') 
+		info = s.connect((HOST, PORT))
+		print('[CLIENT] Socket connected')
+		s.close()
+	except socket.error as msg:
+		print('[CLIENT] Error while creating socket. Error: {}'.format(msg))
+
+	time.sleep(CONN_SLEEP)

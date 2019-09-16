@@ -1,0 +1,23 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: client.dockerfile
+    environment:
+      - PYTHONUNBUFFERED=1
+      - SERVER_IP=server
+      - SERVER_PORT=12345
+      - CONN_SLEEP=1
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: ./server
+      dockerfile: server.dockerfile
+    environment:
+      - PYTHONUNBUFFERED=1
+      - SERVER_IP=0.0.0.0
+      - SERVER_PORT=12345
+      - SERVER_LISTEN_CONNECTIONS=2
